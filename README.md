@@ -169,6 +169,4 @@ https://github.com/user-attachments/assets/7a7b7749-7461-40a8-aa65-6ca6eb04ff34
 
 
 "# Gestion-des-projets-de-recherche" 
-"# Gestion-des-projets-de-recherche" 
-"# Controle-" 
-"# Controle-" 
+
