@@ -19,16 +19,32 @@ public class ProjetByTitreForm extends javax.swing.JInternalFrame {
 
     private ProjetRechercheService prs;
     private DefaultTableModel model;
+    private static ProjetByTitreForm instance;
 
     /**
      * Creates new form ProjetByTitreForm
      */
-    public ProjetByTitreForm() {
+    private ProjetByTitreForm() {
+
+        super("Filtrage des projets selon les axes de recherche", true, true, true, true);
+        setSize(900, 800);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
         initComponents();
         prs = new ProjetRechercheService();
         model = (DefaultTableModel) listProjetsByTitle.getModel();
 
         loadProjetRecherche();
+    }
+
+    public static ProjetByTitreForm getInstance() {
+        if (instance == null || instance.isClosed()) {
+            synchronized (ProjetByTitreForm.class) { // Synchronisez pour la sécurité des threads
+                if (instance == null || instance.isClosed()) {
+                    instance = new ProjetByTitreForm();
+                }
+            }
+        }
+        return instance;
     }
 
     private void loadProjetRecherche() {
@@ -60,7 +76,7 @@ public class ProjetByTitreForm extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(253, 253, 228));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("ProjetByTitre"));
 
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\go\\Documents\\NetBeansProjects\\ProjetsDeRecherche\\src\\Images\\icons8-titre-24.png")); // NOI18N
@@ -92,7 +108,7 @@ public class ProjetByTitreForm extends javax.swing.JInternalFrame {
                         .addGap(40, 40, 40)
                         .addComponent(txtChercher))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
+                        .addGap(191, 191, 191)
                         .addComponent(jLabel2)))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
@@ -114,7 +130,7 @@ public class ProjetByTitreForm extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Id", "Titre", "Axe", "Date de début", "nullDate fin"
+                "Id", "Titre", "Axe", "Date de début", "Date fin"
             }
         ));
         jScrollPane1.setViewportView(listProjetsByTitle);
@@ -124,14 +140,14 @@ public class ProjetByTitreForm extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -143,7 +159,7 @@ public class ProjetByTitreForm extends javax.swing.JInternalFrame {
         String titre = txtTitre.getText().trim();
 
         if (!titre.isEmpty()) {
-            model.setRowCount(0); 
+            model.setRowCount(0);
 
             ProjetRecherche projet = prs.findByTire(titre);
 

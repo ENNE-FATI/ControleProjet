@@ -5,6 +5,7 @@
  */
 package gui;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
 /**
@@ -17,10 +18,18 @@ public class MDIApplication extends javax.swing.JFrame {
     private static MDIApplication instance;
 
     // Constructeur privé pour empêcher l'instanciation directe
-    private MDIApplication() {
+    public MDIApplication() {
         initComponents();
         this.setTitle("Gestion des Projets de Recherche");
         this.setExtendedState(MAXIMIZED_BOTH);
+        desktopPane = new JDesktopPane();
+        setContentPane(desktopPane);
+        openBarChartInternalFrame();
+    }
+
+    private void openBarChartInternalFrame() {
+        Barchart barchartFrame = new Barchart();
+        barchartFrame.setVisible(true);
     }
 
     // Méthode pour obtenir l'instance unique
@@ -54,7 +63,7 @@ public class MDIApplication extends javax.swing.JFrame {
         cutMenuItem = new javax.swing.JMenuItem();
         copyMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
+        grapheMenuItem = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -65,7 +74,6 @@ public class MDIApplication extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         desktopPane.setPreferredSize(new java.awt.Dimension(800, 600));
-        desktopPane.setLayout(new java.awt.BorderLayout());
         getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
 
         fileMenu.setMnemonic('f');
@@ -133,9 +141,14 @@ public class MDIApplication extends javax.swing.JFrame {
         helpMenu.setMnemonic('h');
         helpMenu.setText("Statiques");
 
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Nombre des projets par axe");
-        helpMenu.add(contentMenuItem);
+        grapheMenuItem.setMnemonic('c');
+        grapheMenuItem.setText("Nombre des projets par axe");
+        grapheMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grapheMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(grapheMenuItem);
 
         menuBar.add(helpMenu);
 
@@ -199,6 +212,13 @@ public class MDIApplication extends javax.swing.JFrame {
 
     }//GEN-LAST:event_copyMenuItemActionPerformed
 
+    private void grapheMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grapheMenuItemActionPerformed
+        // TODO add your handling code here:
+        Barchart bs = new Barchart();
+        desktopPane.add(bs);
+        bs.setVisible(true);
+    }//GEN-LAST:event_grapheMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,7 +256,6 @@ public class MDIApplication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem affectationProjetMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JDesktopPane desktopPane;
@@ -244,6 +263,7 @@ public class MDIApplication extends javax.swing.JFrame {
     private javax.swing.JMenuItem enseignantMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenuItem grapheMenuItem;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -252,4 +272,9 @@ public class MDIApplication extends javax.swing.JFrame {
     private javax.swing.JMenuItem projetRechercheMenuItem;
     // End of variables declaration//GEN-END:variables
 
+    private void closeAllInternalFrames() {
+        for (JInternalFrame frame : desktopPane.getAllFrames()) {
+            frame.dispose();
+        }
+    }
 }

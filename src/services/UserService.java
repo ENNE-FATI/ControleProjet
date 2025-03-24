@@ -1,12 +1,8 @@
 package services;
 
 import beans.User;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import connexion.Connexion;
 import dao.IUserDao;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
@@ -15,9 +11,10 @@ import java.sql.SQLException;
 import java.util.Random;
 import java.util.Base64;
 import javax.swing.JOptionPane;
-
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-import sun.rmi.transport.Transport;
 
 /**
  *
@@ -117,7 +114,7 @@ public class UserService implements IUserDao {
         String query = "UPDATE user SET password = SHA1(?) WHERE login = ?";
         try {
             PreparedStatement pstmt = connexion.getCn().prepareStatement(query);
-            pstmt.setString(1, newPassword); // Nouveau mot de passe en clair
+            pstmt.setString(1, newPassword);
             pstmt.setString(2, login);
             int rowsUpdated = pstmt.executeUpdate();
             return rowsUpdated > 0;
@@ -145,14 +142,14 @@ public class UserService implements IUserDao {
 
     private void sendPasswordByEmail(String recipientEmail, String newPassword) {
         try {
-            String username = "mrymbady525@gmail.com"; //ma  adresse e-mail
-            String password = "vnof wckx klzx jykd"; // j'ai creer un  mot de passe de l'application
+            String username = "f.ennesyry5123@uca.ac.ma"; 
+            String password = "wiru eajj cbau uofd"; 
 
             Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
             props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
+            props.put("mail.smtp.host", "smtp.gmail.com"); 
+            props.put("mail.smtp.port", "587"); 
 
             Session session = Session.getInstance(props, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
@@ -163,7 +160,7 @@ public class UserService implements IUserDao {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail));
-            message.setSubject("Réinitialisation de votre mot de passe");
+            message.setSubject("Réinitialisez votre mot de passe");
             message.setText("Votre nouveau mot de passe est : " + newPassword);
 
             Transport.send(message);

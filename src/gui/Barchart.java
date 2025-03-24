@@ -17,44 +17,48 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
- * @author AMINE
+ * @author Fati
  */
 public class Barchart extends javax.swing.JInternalFrame {
+
     private DefaultCategoryDataset dataset;
     private Connexion connexion;
+
     /**
      * Creates new form Barchart
      */
     public Barchart() {
         initComponents();
         connexion = Connexion.getInstance();
-        this.setTitle("Répartition des stages par entreprise");
+        this.setTitle("Répartition des projets par axes");
+        setSize(900, 800);
         
+
         dataset = new DefaultCategoryDataset();
         load();
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Répartition des stages",
-                "Entreprise",
-                "Nombre de sujets",
+                "Répartition des projets",
+                "axe",
+                "Nombre de projets",
                 dataset
         );
-        
-ChartPanel chartPanel = new ChartPanel(barChart);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
         setContentPane(chartPanel);
     }
-    
+
     private void load() {
-        String req = "SELECT entreprise, COUNT(*) AS nb_stages FROM stage GROUP BY entreprise";
-        
+        String req = "SELECT axe, COUNT(*) AS nb_projets FROM projetrecherche GROUP BY axe";
+
         try (PreparedStatement ps = connexion.getCn().prepareStatement(req);
                 ResultSet rs = ps.executeQuery()) {
 
             dataset.clear();  // Efface les anciennes données
 
             while (rs.next()) {
-                String entreprise = rs.getString("entreprise");
-                int nbStages = rs.getInt("nb_stages");
-                dataset.addValue(nbStages, "Stages", entreprise);
+                String axe = rs.getString("axe");
+                int nbProjets = rs.getInt("nb_projets");
+                dataset.addValue(nbProjets, "projetrecherche", axe);
             }
 
         } catch (SQLException e) {
@@ -62,7 +66,7 @@ ChartPanel chartPanel = new ChartPanel(barChart);
             JOptionPane.showMessageDialog(this, "Erreur de connexion à la base de données !");
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,7 +77,11 @@ ChartPanel chartPanel = new ChartPanel(barChart);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

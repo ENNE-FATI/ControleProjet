@@ -29,7 +29,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Authentification");
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -146,7 +146,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bnForgetPassword)
                     .addComponent(btnConnexion))
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -155,20 +155,18 @@ public class Main extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 124, Short.MAX_VALUE))
         );
 
@@ -210,7 +208,7 @@ public class Main extends javax.swing.JFrame {
 
     private void btnConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnexionActionPerformed
         // TODO add your handling code here:
-         String login = txtLogin.getText().trim();
+        String login = txtLogin.getText().trim();
         String password = new String(txtPassword.getPassword()).trim();
 
         UserService userService = new UserService();
@@ -231,7 +229,7 @@ public class Main extends javax.swing.JFrame {
 
     private void bnForgetPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnForgetPasswordActionPerformed
         // TODO add your handling code here:
-     String login = JOptionPane.showInputDialog(this, "Entrez votre login :");
+        String login = JOptionPane.showInputDialog(this, "Entrez votre login :");
 
         if (login != null && !login.isEmpty()) {
             UserService userService = new UserService();
@@ -256,11 +254,9 @@ public class Main extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Utilisateur non trouvé.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Veuillez entrer votre login.");
+            JOptionPane.showMessageDialog(this, "Entrez votre login.");
         }
     }//GEN-LAST:event_bnForgetPasswordActionPerformed
-
-   
 
     /**
      * @param args the command line arguments

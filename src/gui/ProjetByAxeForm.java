@@ -20,33 +20,47 @@ public class ProjetByAxeForm extends javax.swing.JInternalFrame {
 
     private ProjetRechercheService prs;
     private DefaultTableModel model;
+    private static ProjetByAxeForm instance;
 
     /**
      * Creates new form ProjetByAxe
      */
-   public ProjetByAxeForm() {
-    initComponents();
-    prs = new ProjetRechercheService();
-    model = (DefaultTableModel) listProjetByAxe.getModel();
-    loadAxeOptions();  // Remplissage des axes
-    loadProjetRecherche();
-}
-private void loadAxeOptions() {
-    listAxe.removeAllItems();
-    
+    private ProjetByAxeForm() {
+        super("Filtrage des projets selon les axes de recherche", true, true, true, true);
+        setSize(900, 800);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        initComponents();
+        prs = new ProjetRechercheService();
+        model = (DefaultTableModel) listProjetByAxe.getModel();
+        loadAxeOptions();  // Remplissage des axes
+        loadProjetRecherche();
+    }
 
-    List<String> axes = new ArrayList<>();
-    for (ProjetRecherche projet : prs.findAll()) {
-        if (!axes.contains(projet.getAxe())) {
-            axes.add(projet.getAxe());
+    private void loadAxeOptions() {
+        listAxe.removeAllItems();
+
+        List<String> axes = new ArrayList<>();
+        for (ProjetRecherche projet : prs.findAll()) {
+            if (!axes.contains(projet.getAxe())) {
+                axes.add(projet.getAxe());
+            }
+        }
+
+        for (String axe : axes) {
+            listAxe.addItem(axe);
         }
     }
 
-    for (String axe : axes) {
-        listAxe.addItem(axe);
+    public static ProjetByAxeForm getInstance() {
+        if (instance == null || instance.isClosed()) {
+            synchronized (ProjetByAxeForm.class) { // Synchronisez pour la sécurité des threads
+                if (instance == null || instance.isClosed()) {
+                    instance = new ProjetByAxeForm();
+                }
+            }
+        }
+        return instance;
     }
-}
-
 
     private void loadProjetRecherche() {
         model.setRowCount(0);
@@ -76,7 +90,7 @@ private void loadAxeOptions() {
         setMaximizable(true);
         setResizable(true);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(253, 253, 228));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("ProjetsByAxe"));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -133,7 +147,7 @@ private void loadAxeOptions() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,24 +161,24 @@ private void loadAxeOptions() {
     }// </editor-fold>//GEN-END:initComponents
 
     private void listAxeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listAxeActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
         String selectedAxe = (String) listAxe.getSelectedItem();
 
-    if (selectedAxe != null && !selectedAxe.equals("Choisir un axe")) {
-        model.setRowCount(0); // Vider la table avant d'ajouter les nouveaux résultats
+        if (selectedAxe != null && !selectedAxe.equals("Choisir un axe")) {
+            model.setRowCount(0); // Vider la table avant d'ajouter les nouveaux résultats
 
-        List<ProjetRecherche> projets = prs.findByAxe(selectedAxe);
+            List<ProjetRecherche> projets = prs.findByAxe(selectedAxe);
 
-        if (projets.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Aucun projet trouvé pour cet axe !");
-        } else {
-            for (ProjetRecherche p : projets) {
-                model.addRow(new Object[]{p.getId(), p.getTitre(), p.getDateDebut(), p.getDateFin()});
+            if (projets.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Aucun projet trouvé pour cet axe !");
+            } else {
+                for (ProjetRecherche p : projets) {
+                    model.addRow(new Object[]{p.getId(), p.getTitre(), p.getDateDebut(), p.getDateFin()});
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Veuillez choisir un axe !");
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Veuillez choisir un axe !");
-    }
     }//GEN-LAST:event_listAxeActionPerformed
 
 
