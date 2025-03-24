@@ -1,6 +1,3 @@
-# ControleAvancement
-
-
 
 # Gestion des Projets de Recherche
 
@@ -139,7 +136,7 @@ CREATE TABLE AffecteProjet (
 ```
 
 ## Le diagramme de classe :
-![image](https://github.com/user-attachments/assets/9fee8e6e-e7f9-4022-973b-1290a13f2a34)
+![image](src/Images/Classe.PNG)
 
 
 ## Le diagramme de Use cases :
@@ -163,7 +160,13 @@ L’architecture suit le modèle **MVC**, avec un système d’authentification 
 
 ## 🎥 Vidéo de Démonstration  
 Vous pouvez visionner la vidéo de démonstration ici :  
-[Voir la vidéo]
-https://drive.google.com/file/d/1xk9SnbTVov3qZwKyziTeAR_S4wZOL9Wp/view?usp=drive_link
-"# ControleProjet" 
-"# ControleProjet" 
+
+
+
+https://github.com/user-attachments/assets/7a7b7749-7461-40a8-aa65-6ca6eb04ff34
+
+
+
+
+"# Gestion-des-projets-de-recherche" 
+
