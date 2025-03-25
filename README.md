@@ -163,7 +163,9 @@ Vous pouvez visionner la vidéo de démonstration ici :
 
 
 
-https://github.com/user-attachments/assets/7a7b7749-7461-40a8-aa65-6ca6eb04ff34
+
+https://github.com/user-attachments/assets/f3c7c198-1d86-4f27-a65b-f0a9f55fcb3d
+
 
 
 
