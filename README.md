@@ -160,7 +160,11 @@ L’architecture suit le modèle **MVC**, avec un système d’authentification 
 
 ## 🎥 Vidéo de Démonstration  
 Vous pouvez visionner la vidéo de démonstration ici :  
-https://github.com/user-attachments/assets/b4c4ebff-52e9-49ba-8bd0-8f0430ab2134
+
+
+
+https://github.com/user-attachments/assets/796b3448-ec95-478c-bd14-eefaad660585
+
 
 
 
